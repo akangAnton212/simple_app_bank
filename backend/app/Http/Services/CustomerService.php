@@ -42,7 +42,8 @@ class CustomerService {
 
             // $data = $data->get();
 
-            $data = $data->get()->map(function($key){
+            $data = $data->get()
+                ->map(function($key){
                 return [
                     'id'                    => $key->id,
                     'NIK'                   => $key->NIK,
@@ -90,7 +91,7 @@ class CustomerService {
 
     public function addCustomer($request){
         $validator = Validator::make($request->all(), [
-            'NIK'           => 'required|max:16',
+            'NIK'           => 'required|max:16|min:16',
             'name'          => 'required',
             'DOB'           => 'required',
             'POB'           => 'required',

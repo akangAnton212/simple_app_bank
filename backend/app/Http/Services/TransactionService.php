@@ -386,10 +386,6 @@ class TransactionService {
                             'enabled'           => true
                         ])->first();
 
-            
-
-           
-
             if (Hash::check($request->input('old_password'), $account->password)) {
                 
                 if(Hash::check($request->input('new_password'), $account->password)){
