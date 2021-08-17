@@ -3,7 +3,7 @@
     <div class="content">
       <div class="col-lg-12">
         <div class="row">
-          WELCOME TO SIMPLE RESTO
+          WELCOME
         </div>
       </div>
     </div>
