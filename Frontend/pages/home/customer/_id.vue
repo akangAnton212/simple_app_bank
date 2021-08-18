@@ -124,10 +124,30 @@
         <div
           class="tab-pane"
           id="mutation">
-          <div class="form-group mt-3">
-            <span class="fonts-12">Trans Date</span>
-            <date-picker v-model="trans_date" range :lang="'en'"></date-picker>
+          <div class="col-lg-12">
+            <div class="row">
+              <div class="col-lg-6">
+                <div class="form-group mt-3">
+                  <span class="fonts-12">Trans Date</span>
+                  <date-picker v-model="trans_date" range :lang="'en'"></date-picker>
+                </div>
+              </div>
+              <div class="col-lg-6">
+                <div class="form-group mt-3">
+                  <span class="fonts-12">Trans Type</span>
+                  <select
+                    v-model="trans_type"
+                    class="form-select form-select-sm"
+                    aria-label="Default select example">
+                    <option value="" selected>Select All Trans Type</option>
+                    <option value="DT">Debit</option>
+                    <option value="CR">Credit</option>
+                  </select>
+                </div>
+              </div>
+            </div>
           </div>
+
           <table class="table table-sm">
             <thead>
               <tr>
@@ -203,6 +223,7 @@ export default {
     return {
       trans_date:[],
       tab_active: 1,
+      trans_type:'',
     };
   },
 
@@ -306,7 +327,8 @@ export default {
   
   watch:{
    currentPage:'loadData',
-   trans_date:'loadData'
+   trans_date:'loadData',
+   trans_type: 'loadData'
   },
 
   methods: {
@@ -354,17 +376,21 @@ export default {
 
     loadData(){
       let paramsFiler = {}
+
       if(this.trans_date.length > 0){
         paramsFiler = {
           page: this.currentPage,
           start_date: this.$moment(this.trans_date[0]).format('YYYY-MM-DD 00:00:00'),
-          end_date: this.$moment(this.trans_date[1]).format('YYYY-MM-DD 23:59:59')
+          end_date: this.$moment(this.trans_date[1]).format('YYYY-MM-DD 23:59:59'),
+          trans_type: this.trans_type
         }
       }else{
         paramsFiler = {
           page: this.currentPage,
         }
       }
+
+      paramsFiler.trans_type = this.trans_type
 
       if(this.tab_active === 1){
         return this.$axios.$get(`/api/v1/transaction/getTransferHistoryOut/${this.uid_account}`, {
