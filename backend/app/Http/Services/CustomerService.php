@@ -72,7 +72,7 @@ class CustomerService {
                 ];
             });
 
-            $data = (new Collection($data))->paginate(2);
+            $data = (new Collection($data))->paginate(10);
             
             return response()->json([
                 'status'        => count($data) > 0 ? true : false,
